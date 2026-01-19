@@ -141,6 +141,8 @@
   left: -20px;
   top: -10px;
   opacity: 0.3;
+  aria-hidden: true;
+  pointer-events: none;
 }
 
 .quote-author {

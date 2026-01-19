@@ -80,23 +80,33 @@
           {% when 'video' %}
             <div class="advertorial-video-block">
               {% if block.settings.video_url != blank %}
-                <div class="video-wrapper">
-                  {% if block.settings.video_url contains 'youtube.com' or block.settings.video_url contains 'youtu.be' %}
+                {% comment %}Extract video ID and create safe embed URL{% endcomment %}
+                {% assign video_url = block.settings.video_url %}
+                {% assign embed_url = '' %}
+                
+                {% if video_url contains 'youtube.com/watch' %}
+                  {% assign video_id = video_url | split: 'v=' | last | split: '&' | first %}
+                  {% assign embed_url = 'https://www.youtube.com/embed/' | append: video_id %}
+                {% elsif video_url contains 'youtu.be/' %}
+                  {% assign video_id = video_url | split: 'youtu.be/' | last | split: '?' | first %}
+                  {% assign embed_url = 'https://www.youtube.com/embed/' | append: video_id %}
+                {% elsif video_url contains 'youtube.com/embed/' %}
+                  {% assign embed_url = video_url %}
+                {% elsif video_url contains 'vimeo.com/' %}
+                  {% assign video_id = video_url | split: 'vimeo.com/' | last | split: '?' | first | split: '/' | last %}
+                  {% assign embed_url = 'https://player.vimeo.com/video/' | append: video_id %}
+                {% endif %}
+                
+                {% if embed_url != blank %}
+                  <div class="video-wrapper">
                     <iframe 
-                      src="{{ block.settings.video_url }}" 
-                      frameborder="0" 
+                      src="{{ embed_url }}" 
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                       allowfullscreen
+                      style="border: none;"
                     ></iframe>
-                  {% elsif block.settings.video_url contains 'vimeo.com' %}
-                    <iframe 
-                      src="{{ block.settings.video_url }}" 
-                      frameborder="0" 
-                      allow="autoplay; fullscreen; picture-in-picture" 
-                      allowfullscreen
-                    ></iframe>
-                  {% endif %}
-                </div>
+                  </div>
+                {% endif %}
               {% endif %}
             </div>
 
@@ -229,7 +239,7 @@
           "type": "text",
           "id": "video_url",
           "label": "Video URL",
-          "info": "Supports YouTube and Vimeo embed URLs"
+          "info": "Paste any YouTube or Vimeo URL (e.g., youtube.com/watch?v=ID or vimeo.com/ID)"
         }
       ]
     }
