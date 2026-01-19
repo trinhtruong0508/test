@@ -15,11 +15,11 @@
   {% endif %}
 
   {% if section.settings.headline != blank %}
-    <h2 class="advertorial-headline">{{ section.settings.headline }}</h2>
+    <h2 class="advertorial-headline">{{ section.settings.headline | escape }}</h2>
   {% endif %}
 
   {% if section.settings.subheadline != blank %}
-    <p class="advertorial-subheadline">{{ section.settings.subheadline }}</p>
+    <p class="advertorial-subheadline">{{ section.settings.subheadline | escape }}</p>
   {% endif %}
 
   <div class="advertorial-blocks">
@@ -29,7 +29,7 @@
           {% when 'text' %}
             <div class="advertorial-text-block">
               {% if block.settings.heading != blank %}
-                <h3>{{ block.settings.heading }}</h3>
+                <h3>{{ block.settings.heading | escape }}</h3>
               {% endif %}
               {% if block.settings.text != blank %}
                 <div class="rte">{{ block.settings.text }}</div>
@@ -92,7 +92,7 @@
                   {% assign embed_url = 'https://www.youtube.com/embed/' | append: video_id %}
                 {% elsif video_url contains 'youtube.com/embed/' %}
                   {% comment %}Validate it's a proper YouTube embed URL{% endcomment %}
-                  {% if video_url contains 'https://www.youtube.com/embed/' or video_url contains 'https://youtube.com/embed/' %}
+                  {% if video_url contains 'https://www.youtube.com/embed/' %}
                     {% assign embed_url = video_url %}
                   {% endif %}
                 {% elsif video_url contains 'vimeo.com/' %}
