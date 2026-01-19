@@ -1,0 +1,289 @@
+{% comment %}
+  Advertorial Content Section
+  Provides customizable content blocks for advertorial pages
+{% endcomment %}
+
+<div class="advertorial-content-section">
+  {% if section.settings.show_banner and section.settings.banner_image != blank %}
+    <div class="advertorial-banner">
+      <img 
+        src="{{ section.settings.banner_image | img_url: '1600x' }}" 
+        alt="{{ section.settings.banner_alt_text | escape }}"
+        loading="lazy"
+      >
+    </div>
+  {% endif %}
+
+  {% if section.settings.headline != blank %}
+    <h2 class="advertorial-headline">{{ section.settings.headline | escape }}</h2>
+  {% endif %}
+
+  {% if section.settings.subheadline != blank %}
+    <p class="advertorial-subheadline">{{ section.settings.subheadline | escape }}</p>
+  {% endif %}
+
+  <div class="advertorial-blocks">
+    {% for block in section.blocks %}
+      <div class="advertorial-block advertorial-block--{{ block.type }}" {{ block.shopify_attributes }}>
+        {% case block.type %}
+          {% when 'text' %}
+            <div class="advertorial-text-block">
+              {% if block.settings.heading != blank %}
+                <h3>{{ block.settings.heading | escape }}</h3>
+              {% endif %}
+              {% if block.settings.text != blank %}
+                {% comment %}Rich text is pre-sanitized by Shopify admin - do not escape{% endcomment %}
+                <div class="rte">{{ block.settings.text }}</div>
+              {% endif %}
+            </div>
+
+          {% when 'image' %}
+            <div class="advertorial-image-block">
+              {% if block.settings.image != blank %}
+                <img 
+                  src="{{ block.settings.image | img_url: '1200x' }}" 
+                  alt="{{ block.settings.image_alt | escape }}"
+                  loading="lazy"
+                >
+              {% endif %}
+              {% if block.settings.caption != blank %}
+                <p class="image-caption">{{ block.settings.caption | escape }}</p>
+              {% endif %}
+            </div>
+
+          {% when 'quote' %}
+            <div class="advertorial-quote-block">
+              <blockquote>
+                {% if block.settings.quote != blank %}
+                  <p class="quote-text">{{ block.settings.quote | escape }}</p>
+                {% endif %}
+                {% if block.settings.author != blank %}
+                  <cite class="quote-author">— {{ block.settings.author | escape }}</cite>
+                {% endif %}
+              </blockquote>
+            </div>
+
+          {% when 'cta' %}
+            <div class="advertorial-cta-block">
+              {% if block.settings.cta_heading != blank %}
+                <h3>{{ block.settings.cta_heading | escape }}</h3>
+              {% endif %}
+              {% if block.settings.cta_text != blank %}
+                <p>{{ block.settings.cta_text | escape }}</p>
+              {% endif %}
+              {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+                <a href="{{ block.settings.button_link | escape }}" class="button advertorial-cta-button">
+                  {{ block.settings.button_text | escape }}
+                </a>
+              {% endif %}
+            </div>
+
+          {% when 'video' %}
+            <div class="advertorial-video-block">
+              {% if block.settings.video_url != blank %}
+                {% comment %}Extract video ID and create safe embed URL{% endcomment %}
+                {% assign video_url = block.settings.video_url %}
+                {% assign embed_url = '' %}
+                {% assign video_title = 'Embedded video' %}
+                
+                {% if video_url contains 'youtube.com/watch' and video_url contains 'v=' %}
+                  {% assign video_id = video_url | split: 'v=' | last | split: '&' | first %}
+                  {% if video_id != blank %}
+                    {% assign embed_url = 'https://www.youtube.com/embed/' | append: video_id %}
+                    {% assign video_title = 'YouTube video' %}
+                  {% endif %}
+                {% elsif video_url contains 'youtu.be/' %}
+                  {% assign video_parts = video_url | split: 'youtu.be/' %}
+                  {% if video_parts.size > 1 %}
+                    {% assign video_id = video_parts | last | split: '?' | first %}
+                    {% if video_id != blank %}
+                      {% assign embed_url = 'https://www.youtube.com/embed/' | append: video_id %}
+                      {% assign video_title = 'YouTube video' %}
+                    {% endif %}
+                  {% endif %}
+                {% elsif video_url contains 'youtube.com/embed/' %}
+                  {% comment %}Validate it's a proper YouTube embed URL{% endcomment %}
+                  {% if video_url contains 'https://www.youtube.com/embed/' %}
+                    {% assign embed_url = video_url %}
+                    {% assign video_title = 'YouTube video' %}
+                  {% endif %}
+                {% elsif video_url contains 'vimeo.com/' %}
+                  {% assign vimeo_parts = video_url | split: 'vimeo.com/' %}
+                  {% if vimeo_parts.size > 1 %}
+                    {% assign video_id = vimeo_parts | last | split: '?' | first | split: '/' | last %}
+                    {% if video_id != blank %}
+                      {% assign embed_url = 'https://player.vimeo.com/video/' | append: video_id %}
+                      {% assign video_title = 'Vimeo video' %}
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+                
+                {% comment %}Only render iframe if we have a valid embed URL from trusted sources{% endcomment %}
+                {% if embed_url != blank %}
+                  {% if embed_url contains 'youtube.com/embed/' or embed_url contains 'player.vimeo.com/video/' %}
+                    <div class="video-wrapper">
+                      <iframe 
+                        src="{{ embed_url | escape }}"
+                        title="{{ video_title | escape }}"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        style="border: none;"
+                      ></iframe>
+                    </div>
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            </div>
+
+        {% endcase %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Advertorial Content",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Show Banner Image",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_alt_text",
+      "label": "Banner Alt Text",
+      "default": "Advertorial banner"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Discover the Story"
+    },
+    {
+      "type": "textarea",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "An engaging narrative that combines information and promotion"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text Content"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image Alt Text"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Image Caption"
+        }
+      ]
+    },
+    {
+      "type": "quote",
+      "name": "Quote Block",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote Text"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Quote Author"
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "name": "Call-to-Action Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "cta_heading",
+          "label": "CTA Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "cta_text",
+          "label": "CTA Text"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL",
+          "info": "Paste any YouTube or Vimeo URL (e.g., youtube.com/watch?v=ID or vimeo.com/ID)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Advertorial Content",
+      "blocks": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "cta"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

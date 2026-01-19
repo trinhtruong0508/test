@@ -1,0 +1,23 @@
+{% comment %}
+  Advertorial Page Template
+  This template is used for creating advertorial content pages
+{% endcomment %}
+
+<div class="advertorial-page">
+  <div class="page-width">
+    {% if page.title != blank %}
+      <header class="advertorial-header">
+        <h1 class="advertorial-title">{{ page.title | escape }}</h1>
+      </header>
+    {% endif %}
+
+    {% section 'advertorial-content' %}
+
+    {% if page.content != blank %}
+      {% comment %}Page content is pre-sanitized by Shopify admin - do not escape{% endcomment %}
+      <div class="advertorial-body rte">
+        {{ page.content }}
+      </div>
+    {% endif %}
+  </div>
+</div>
