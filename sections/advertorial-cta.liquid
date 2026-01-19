@@ -1,0 +1,235 @@
+{% comment %}
+  Advertorial Call-to-Action Section
+  Final conversion section with prominent CTA
+{% endcomment %}
+
+<div class="advertorial-cta">
+  <div class="cta-container">
+    {% if section.settings.cta_title != blank %}
+      <h2 class="cta-title">{{ section.settings.cta_title }}</h2>
+    {% endif %}
+
+    {% if section.settings.cta_description != blank %}
+      <p class="cta-description">{{ section.settings.cta_description }}</p>
+    {% endif %}
+
+    {% if section.settings.show_benefits %}
+      <ul class="cta-benefits">
+        {% if section.settings.benefit_1 != blank %}
+          <li>{{ section.settings.benefit_1 }}</li>
+        {% endif %}
+        {% if section.settings.benefit_2 != blank %}
+          <li>{{ section.settings.benefit_2 }}</li>
+        {% endif %}
+        {% if section.settings.benefit_3 != blank %}
+          <li>{{ section.settings.benefit_3 }}</li>
+        {% endif %}
+        {% if section.settings.benefit_4 != blank %}
+          <li>{{ section.settings.benefit_4 }}</li>
+        {% endif %}
+      </ul>
+    {% endif %}
+
+    {% if section.settings.button_text != blank %}
+      <a href="{{ section.settings.button_link | url }}" class="cta-button">
+        {{ section.settings.button_text }}
+      </a>
+    {% endif %}
+
+    {% if section.settings.show_guarantee %}
+      <div class="cta-guarantee">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 7V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V7L12 2Z" fill="#28a745" stroke="#28a745" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 12L11 14L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>{{ section.settings.guarantee_text }}</span>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .advertorial-cta {
+    max-width: 700px;
+    margin: 4rem auto;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    text-align: center;
+    color: white;
+  }
+
+  .cta-container {
+    position: relative;
+  }
+
+  .cta-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .cta-description {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    opacity: 0.95;
+  }
+
+  .cta-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    text-align: left;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-benefits li {
+    padding: 0.75rem 0 0.75rem 2rem;
+    position: relative;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+  }
+
+  .cta-benefits li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: white;
+    color: #667eea;
+    text-decoration: none;
+    font-size: 1.125rem;
+    font-weight: 700;
+    border-radius: 50px;
+    margin: 1rem 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+
+  .cta-guarantee {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    font-size: 0.9375rem;
+    opacity: 0.95;
+  }
+
+  .cta-guarantee svg {
+    flex-shrink: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .advertorial-cta {
+      padding: 2rem 1.5rem;
+      margin: 3rem 1rem;
+    }
+
+    .cta-title {
+      font-size: 1.5rem;
+    }
+
+    .cta-description {
+      font-size: 1rem;
+    }
+
+    .cta-button {
+      padding: 0.875rem 2rem;
+      font-size: 1rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Advertorial CTA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "CTA Title",
+      "default": "Ready to Experience the Difference?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_description",
+      "label": "CTA Description",
+      "default": "Join thousands of satisfied customers who have already transformed their lives"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_benefits",
+      "label": "Show Benefits List",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "Free shipping on all orders"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "30-day money-back guarantee"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "Expert customer support"
+    },
+    {
+      "type": "text",
+      "id": "benefit_4",
+      "label": "Benefit 4",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "label": "Show Guarantee Badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee Text",
+      "default": "30-Day Money-Back Guarantee"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Advertorial CTA"
+    }
+  ]
+}
+{% endschema %}
