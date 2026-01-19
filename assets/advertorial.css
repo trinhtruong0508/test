@@ -1,0 +1,286 @@
+/* Advertorial Page Styles */
+
+.advertorial-page {
+  padding: 40px 0;
+  background-color: #ffffff;
+}
+
+.page-width {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.advertorial-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.advertorial-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Content Section */
+.advertorial-content-section {
+  margin: 40px 0;
+}
+
+.advertorial-banner {
+  margin-bottom: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.advertorial-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.advertorial-headline {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #222;
+  margin: 30px 0 15px;
+  text-align: center;
+}
+
+.advertorial-subheadline {
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+  margin: 0 auto 40px;
+  max-width: 800px;
+  line-height: 1.6;
+}
+
+/* Content Blocks */
+.advertorial-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.advertorial-block {
+  padding: 30px;
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+/* Text Block */
+.advertorial-text-block h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 20px;
+}
+
+.advertorial-text-block .rte {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+.advertorial-text-block .rte p {
+  margin-bottom: 15px;
+}
+
+/* Image Block */
+.advertorial-image-block {
+  text-align: center;
+  background: transparent;
+}
+
+.advertorial-image-block img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.image-caption {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #777;
+  font-style: italic;
+}
+
+/* Quote Block */
+.advertorial-quote-block {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.advertorial-quote-block blockquote {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.quote-text {
+  font-size: 1.5rem;
+  font-style: italic;
+  line-height: 1.6;
+  margin: 0 0 20px;
+  position: relative;
+}
+
+.quote-text::before {
+  content: '"';
+  font-size: 3rem;
+  position: absolute;
+  left: -20px;
+  top: -10px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.quote-author {
+  display: block;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* CTA Block */
+.advertorial-cta-block {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  text-align: center;
+  padding: 50px 40px;
+  border-radius: 8px;
+}
+
+.advertorial-cta-block h3 {
+  font-size: 2rem;
+  margin: 0 0 15px;
+  font-weight: 700;
+}
+
+.advertorial-cta-block p {
+  font-size: 1.2rem;
+  margin: 0 0 30px;
+  line-height: 1.6;
+}
+
+.advertorial-cta-button {
+  display: inline-block;
+  padding: 15px 40px;
+  background-color: white;
+  color: #f5576c;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.advertorial-cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  color: #f5576c;
+}
+
+/* Video Block */
+.advertorial-video-block {
+  background: transparent;
+  padding: 0;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Body Content */
+.advertorial-body {
+  margin-top: 50px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #444;
+}
+
+.advertorial-body p {
+  margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .advertorial-title {
+    font-size: 2rem;
+  }
+
+  .advertorial-headline {
+    font-size: 1.6rem;
+  }
+
+  .advertorial-subheadline {
+    font-size: 1rem;
+  }
+
+  .advertorial-block {
+    padding: 20px;
+  }
+
+  .advertorial-text-block h3 {
+    font-size: 1.4rem;
+  }
+
+  .quote-text {
+    font-size: 1.2rem;
+  }
+
+  .advertorial-cta-block {
+    padding: 30px 20px;
+  }
+
+  .advertorial-cta-block h3 {
+    font-size: 1.5rem;
+  }
+
+  .advertorial-cta-block p {
+    font-size: 1rem;
+  }
+
+  .page-width {
+    padding: 0 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .advertorial-title {
+    font-size: 1.6rem;
+  }
+
+  .advertorial-headline {
+    font-size: 1.4rem;
+  }
+
+  .advertorial-cta-button {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+}
