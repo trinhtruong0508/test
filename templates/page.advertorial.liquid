@@ -14,6 +14,7 @@
     {% section 'advertorial-content' %}
 
     {% if page.content != blank %}
+      {% comment %}Page content is pre-sanitized by Shopify admin - do not escape{% endcomment %}
       <div class="advertorial-body rte">
         {{ page.content }}
       </div>
