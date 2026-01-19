@@ -71,7 +71,7 @@
                 <p>{{ block.settings.cta_text | escape }}</p>
               {% endif %}
               {% if block.settings.button_text != blank and block.settings.button_link != blank %}
-                <a href="{{ block.settings.button_link }}" class="button advertorial-cta-button">
+                <a href="{{ block.settings.button_link | escape }}" class="button advertorial-cta-button">
                   {{ block.settings.button_text | escape }}
                 </a>
               {% endif %}
@@ -105,7 +105,7 @@
                   {% if embed_url contains 'youtube.com/embed/' or embed_url contains 'player.vimeo.com/video/' %}
                     <div class="video-wrapper">
                       <iframe 
-                        src="{{ embed_url }}" 
+                        src="{{ embed_url | escape }}" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen
                         style="border: none;"
