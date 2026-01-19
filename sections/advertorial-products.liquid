@@ -37,7 +37,12 @@
                 
                 {% if block.settings.show_rating %}
                   <div class="product-rating">
-                    <span class="stars">★★★★★</span>
+                    {% assign rating = block.settings.rating | default: 5 %}
+                    <span class="stars">
+                      {% for i in (1..5) %}
+                        {% if i <= rating %}★{% else %}☆{% endif %}
+                      {% endfor %}
+                    </span>
                     <span class="rating-count">({{ block.settings.rating_count }} reviews)</span>
                   </div>
                 {% endif %}
@@ -304,6 +309,15 @@
           "id": "show_rating",
           "label": "Show Rating",
           "default": true
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating (Stars)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
         },
         {
           "type": "text",

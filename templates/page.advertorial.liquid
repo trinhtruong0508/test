@@ -4,6 +4,8 @@
   that blend editorial content with product promotion.
 {% endcomment %}
 
+<link rel="stylesheet" href="{{ 'advertorial.css' | asset_url }}">
+
 <div class="page-width">
   <div class="advertorial-page">
     {% section 'advertorial-header' %}
@@ -17,22 +19,3 @@
     {% section 'advertorial-cta' %}
   </div>
 </div>
-
-<style>
-  .advertorial-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-  }
-
-  .advertorial-content {
-    margin: 2rem 0;
-    line-height: 1.8;
-  }
-
-  @media screen and (max-width: 768px) {
-    .advertorial-page {
-      padding: 1rem 0.5rem;
-    }
-  }
-</style>
