@@ -9,6 +9,8 @@
       <img 
         src="{{ section.settings.banner_image | img_url: '1600x' }}" 
         alt="{{ section.settings.banner_alt_text | escape }}"
+        width="1600"
+        height="600"
         loading="lazy"
       >
     </div>
@@ -43,6 +45,8 @@
                 <img 
                   src="{{ block.settings.image | img_url: '1200x' }}" 
                   alt="{{ block.settings.image_alt | escape }}"
+                  width="1200"
+                  height="800"
                   loading="lazy"
                 >
               {% endif %}
