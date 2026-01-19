@@ -83,21 +83,38 @@
                 {% comment %}Extract video ID and create safe embed URL{% endcomment %}
                 {% assign video_url = block.settings.video_url %}
                 {% assign embed_url = '' %}
+                {% assign video_title = 'Embedded video' %}
                 
-                {% if video_url contains 'youtube.com/watch' %}
+                {% if video_url contains 'youtube.com/watch' and video_url contains 'v=' %}
                   {% assign video_id = video_url | split: 'v=' | last | split: '&' | first %}
-                  {% assign embed_url = 'https://www.youtube.com/embed/' | append: video_id %}
+                  {% if video_id != blank %}
+                    {% assign embed_url = 'https://www.youtube.com/embed/' | append: video_id %}
+                    {% assign video_title = 'YouTube video' %}
+                  {% endif %}
                 {% elsif video_url contains 'youtu.be/' %}
-                  {% assign video_id = video_url | split: 'youtu.be/' | last | split: '?' | first %}
-                  {% assign embed_url = 'https://www.youtube.com/embed/' | append: video_id %}
+                  {% assign video_parts = video_url | split: 'youtu.be/' %}
+                  {% if video_parts.size > 1 %}
+                    {% assign video_id = video_parts | last | split: '?' | first %}
+                    {% if video_id != blank %}
+                      {% assign embed_url = 'https://www.youtube.com/embed/' | append: video_id %}
+                      {% assign video_title = 'YouTube video' %}
+                    {% endif %}
+                  {% endif %}
                 {% elsif video_url contains 'youtube.com/embed/' %}
                   {% comment %}Validate it's a proper YouTube embed URL{% endcomment %}
                   {% if video_url contains 'https://www.youtube.com/embed/' %}
                     {% assign embed_url = video_url %}
+                    {% assign video_title = 'YouTube video' %}
                   {% endif %}
                 {% elsif video_url contains 'vimeo.com/' %}
-                  {% assign video_id = video_url | split: 'vimeo.com/' | last | split: '?' | first | split: '/' | last %}
-                  {% assign embed_url = 'https://player.vimeo.com/video/' | append: video_id %}
+                  {% assign vimeo_parts = video_url | split: 'vimeo.com/' %}
+                  {% if vimeo_parts.size > 1 %}
+                    {% assign video_id = vimeo_parts | last | split: '?' | first | split: '/' | last %}
+                    {% if video_id != blank %}
+                      {% assign embed_url = 'https://player.vimeo.com/video/' | append: video_id %}
+                      {% assign video_title = 'Vimeo video' %}
+                    {% endif %}
+                  {% endif %}
                 {% endif %}
                 
                 {% comment %}Only render iframe if we have a valid embed URL from trusted sources{% endcomment %}
@@ -105,7 +122,8 @@
                   {% if embed_url contains 'youtube.com/embed/' or embed_url contains 'player.vimeo.com/video/' %}
                     <div class="video-wrapper">
                       <iframe 
-                        src="{{ embed_url | escape }}" 
+                        src="{{ embed_url | escape }}"
+                        title="{{ video_title | escape }}"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen
                         style="border: none;"
