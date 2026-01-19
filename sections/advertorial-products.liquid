@@ -1,0 +1,328 @@
+{% comment %}
+  Advertorial Products Section
+  Display featured products within the advertorial content
+{% endcomment %}
+
+<div class="advertorial-products">
+  {% if section.settings.section_title != blank %}
+    <h2 class="section-title">{{ section.settings.section_title }}</h2>
+  {% endif %}
+
+  {% if section.settings.section_description != blank %}
+    <p class="section-description">{{ section.settings.section_description }}</p>
+  {% endif %}
+
+  <div class="products-grid">
+    {% for block in section.blocks %}
+      {% if block.type == 'product' %}
+        {% assign product = all_products[block.settings.product] %}
+        {% if product %}
+          <div class="product-card" {{ block.shopify_attributes }}>
+            <a href="{{ product.url }}" class="product-link">
+              {% if product.featured_image %}
+                <div class="product-image">
+                  <img 
+                    src="{{ product.featured_image | img_url: '400x400' }}"
+                    alt="{{ product.title | escape }}"
+                    loading="lazy"
+                  >
+                  {% if block.settings.show_badge and block.settings.badge_text != blank %}
+                    <span class="product-badge">{{ block.settings.badge_text }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+
+              <div class="product-info">
+                <h3 class="product-title">{{ product.title }}</h3>
+                
+                {% if block.settings.show_rating %}
+                  <div class="product-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-count">({{ block.settings.rating_count }} reviews)</span>
+                  </div>
+                {% endif %}
+
+                {% if block.settings.custom_description != blank %}
+                  <p class="product-description">{{ block.settings.custom_description }}</p>
+                {% else %}
+                  <p class="product-description">{{ product.description | strip_html | truncate: 120 }}</p>
+                {% endif %}
+
+                <div class="product-price">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                    <span class="price-sale">{{ product.price | money }}</span>
+                    <span class="price-save">Save {{ product.compare_at_price | minus: product.price | money }}</span>
+                  {% else %}
+                    <span class="price-regular">{{ product.price | money }}</span>
+                  {% endif %}
+                </div>
+
+                <button class="product-cta">
+                  {{ block.settings.button_text | default: "View Product" }}
+                </button>
+              </div>
+            </a>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .advertorial-products {
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 3rem 1rem;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .section-description {
+    text-align: center;
+    font-size: 1.125rem;
+    color: #666;
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+
+  .product-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .product-image {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+  }
+
+  .product-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #dc3545;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .product-info {
+    padding: 1.5rem;
+  }
+
+  .product-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+
+  .product-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .stars {
+    color: #ffc107;
+    font-size: 1rem;
+  }
+
+  .rating-count {
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .product-description {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  .product-price {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .price-compare {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.9375rem;
+  }
+
+  .price-sale {
+    color: #dc3545;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .price-save {
+    background: #28a745;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  .price-regular {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #333;
+  }
+
+  .product-cta {
+    width: 100%;
+    padding: 0.875rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .product-cta:hover {
+    background: #0056b3;
+  }
+
+  @media screen and (max-width: 768px) {
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Advertorial Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Featured Products"
+    },
+    {
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "Hand-picked products that we recommend"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_description",
+          "label": "Custom Description",
+          "info": "Leave blank to use product description"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "View Product"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_badge",
+          "label": "Show Badge",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge Text",
+          "default": "Best Seller"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_rating",
+          "label": "Show Rating",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "rating_count",
+          "label": "Number of Reviews",
+          "default": "127"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Advertorial Products",
+      "blocks": [
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

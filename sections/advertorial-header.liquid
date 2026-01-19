@@ -1,0 +1,186 @@
+{% comment %}
+  Advertorial Header Section
+  Features: Hero image, headline, subheadline, author info
+{% endcomment %}
+
+<div class="advertorial-header">
+  {% if section.settings.show_featured_image and section.settings.featured_image %}
+    <div class="advertorial-hero">
+      <img 
+        src="{{ section.settings.featured_image | img_url: '1200x' }}"
+        alt="{{ section.settings.headline | escape }}"
+        loading="lazy"
+      >
+    </div>
+  {% endif %}
+
+  <div class="advertorial-title-block">
+    {% if section.settings.headline != blank %}
+      <h1 class="advertorial-headline">{{ section.settings.headline }}</h1>
+    {% endif %}
+
+    {% if section.settings.subheadline != blank %}
+      <p class="advertorial-subheadline">{{ section.settings.subheadline }}</p>
+    {% endif %}
+
+    {% if section.settings.show_author %}
+      <div class="advertorial-author">
+        {% if section.settings.author_image %}
+          <img 
+            src="{{ section.settings.author_image | img_url: '80x80' }}"
+            alt="{{ section.settings.author_name | escape }}"
+            class="advertorial-author-image"
+          >
+        {% endif %}
+        <div class="advertorial-author-info">
+          {% if section.settings.author_name != blank %}
+            <p class="author-name">{{ section.settings.author_name }}</p>
+          {% endif %}
+          {% if section.settings.publish_date != blank %}
+            <p class="publish-date">{{ section.settings.publish_date }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .advertorial-header {
+    margin-bottom: 3rem;
+  }
+
+  .advertorial-hero {
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .advertorial-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .advertorial-title-block {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .advertorial-headline {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    color: #333;
+  }
+
+  .advertorial-subheadline {
+    font-size: 1.25rem;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .advertorial-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .advertorial-author-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .advertorial-author-info {
+    text-align: left;
+  }
+
+  .author-name {
+    font-weight: 600;
+    margin: 0;
+    color: #333;
+  }
+
+  .publish-date {
+    font-size: 0.875rem;
+    color: #999;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .advertorial-headline {
+      font-size: 1.75rem;
+    }
+
+    .advertorial-subheadline {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Advertorial Header",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_featured_image",
+      "label": "Show Featured Image",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured Image"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Discover the Secret to..."
+    },
+    {
+      "type": "textarea",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "An in-depth look at the product that's changing lives"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show Author Information",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "author_image",
+      "label": "Author Image"
+    },
+    {
+      "type": "text",
+      "id": "author_name",
+      "label": "Author Name",
+      "default": "Expert Reviewer"
+    },
+    {
+      "type": "text",
+      "id": "publish_date",
+      "label": "Publish Date",
+      "default": "January 2026"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Advertorial Header"
+    }
+  ]
+}
+{% endschema %}

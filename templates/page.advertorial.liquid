@@ -1,0 +1,38 @@
+{% comment %}
+  Advertorial Page Template
+  This template is designed for creating advertorial content pages
+  that blend editorial content with product promotion.
+{% endcomment %}
+
+<div class="page-width">
+  <div class="advertorial-page">
+    {% section 'advertorial-header' %}
+    
+    <div class="advertorial-content">
+      {{ page.content }}
+    </div>
+    
+    {% section 'advertorial-main' %}
+    {% section 'advertorial-products' %}
+    {% section 'advertorial-cta' %}
+  </div>
+</div>
+
+<style>
+  .advertorial-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .advertorial-content {
+    margin: 2rem 0;
+    line-height: 1.8;
+  }
+
+  @media screen and (max-width: 768px) {
+    .advertorial-page {
+      padding: 1rem 0.5rem;
+    }
+  }
+</style>

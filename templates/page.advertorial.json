@@ -1,0 +1,125 @@
+{
+  "sections": {
+    "advertorial-header": {
+      "type": "advertorial-header",
+      "settings": {
+        "show_featured_image": true,
+        "headline": "Discover the Secret to Better Living",
+        "subheadline": "An in-depth review of the product that's transforming lives across the country",
+        "show_author": true,
+        "author_name": "Sarah Johnson",
+        "publish_date": "January 19, 2026"
+      }
+    },
+    "advertorial-main": {
+      "type": "advertorial-main",
+      "blocks": {
+        "text-1": {
+          "type": "text",
+          "settings": {
+            "heading": "The Problem We All Face",
+            "content": "<p>Every day, millions of people struggle with finding the right solution. Traditional methods often fall short, leaving us frustrated and searching for alternatives.</p>"
+          }
+        },
+        "quote-1": {
+          "type": "quote",
+          "settings": {
+            "quote": "This product has completely changed my daily routine. I wish I had discovered it sooner!",
+            "citation": "Emily R., Verified Customer"
+          }
+        },
+        "text-2": {
+          "type": "text",
+          "settings": {
+            "heading": "Why This Solution Works",
+            "content": "<p>After extensive research and testing, we've found that this approach delivers consistent results. Here's what makes it different from everything else on the market.</p>"
+          }
+        },
+        "list-1": {
+          "type": "list",
+          "settings": {
+            "list_title": "Key Benefits",
+            "list_items": "Clinically proven results||Made with natural ingredients||Backed by scientific research||Trusted by experts||No harmful side effects"
+          }
+        },
+        "image-1": {
+          "type": "image",
+          "settings": {
+            "image_caption": "Real results from real customers"
+          }
+        },
+        "text-3": {
+          "type": "text",
+          "settings": {
+            "heading": "The Science Behind It",
+            "content": "<p>What sets this apart is the innovative approach backed by years of research. Multiple studies have confirmed the effectiveness of this method.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text-1",
+        "quote-1",
+        "text-2",
+        "list-1",
+        "image-1",
+        "text-3"
+      ]
+    },
+    "advertorial-products": {
+      "type": "advertorial-products",
+      "settings": {
+        "section_title": "Our Top Recommendations",
+        "section_description": "Based on our extensive testing and customer feedback, these are the products we recommend"
+      },
+      "blocks": {
+        "product-1": {
+          "type": "product",
+          "settings": {
+            "custom_description": "The flagship product that started it all. Perfect for beginners and experts alike.",
+            "button_text": "Shop Now",
+            "show_badge": true,
+            "badge_text": "Best Seller",
+            "show_rating": true,
+            "rating_count": "2,547"
+          }
+        },
+        "product-2": {
+          "type": "product",
+          "settings": {
+            "custom_description": "The premium option for those who want the best results possible.",
+            "button_text": "Learn More",
+            "show_badge": true,
+            "badge_text": "Premium",
+            "show_rating": true,
+            "rating_count": "1,893"
+          }
+        }
+      },
+      "block_order": [
+        "product-1",
+        "product-2"
+      ]
+    },
+    "advertorial-cta": {
+      "type": "advertorial-cta",
+      "settings": {
+        "cta_title": "Ready to Transform Your Life?",
+        "cta_description": "Join thousands of satisfied customers who have already made the switch",
+        "show_benefits": true,
+        "benefit_1": "✓ Free shipping on all orders",
+        "benefit_2": "✓ 30-day money-back guarantee",
+        "benefit_3": "✓ 24/7 customer support",
+        "benefit_4": "✓ Secure checkout",
+        "button_text": "Get Started Today",
+        "show_guarantee": true,
+        "guarantee_text": "100% Satisfaction Guaranteed"
+      }
+    }
+  },
+  "order": [
+    "advertorial-header",
+    "advertorial-main",
+    "advertorial-products",
+    "advertorial-cta"
+  ]
+}
