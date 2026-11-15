@@ -22,6 +22,16 @@ function doPost(e) {
     const at = ids.indexOf(row[8]);
     if (at >= 0) sh.getRange(at+2,1,1,row.length).setValues([row]);
     else sh.appendRow(row);
+    // Ghi lịch sử các lượt làm giống bài 40 CÂU THẾ KỈ.
+    const history = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName('LỊCH SỬ LÀM BÀI');
+    if (history) {
+      const hLast = history.getLastRow();
+      const hIds = hLast > 1 ? history.getRange(2,9,hLast-1,1).getValues().flat() : [];
+      const hAt = hIds.indexOf(row[8]);
+      const hRow = [row[0], 'CHIA 40 CÂU 6CS', row[1], score, checked, row[5], row[6], new Date(), row[8]];
+      if (hAt >= 0) history.getRange(hAt+2,1,1,9).setValues([hRow]);
+      else history.appendRow(hRow);
+    }
     return ContentService.createTextOutput('OK');
   } catch(err) {
     return ContentService.createTextOutput('ERROR: '+err.message);
